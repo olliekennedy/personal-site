@@ -1,0 +1,7 @@
+# PersonalSite
+
+## Package
+```
+./gradlew distZip
+```
+
