@@ -21,7 +21,7 @@ import org.http4k.template.viewModel
 
 val app: HttpHandler = routes(
     "/" bind GET to {
-        Response(OK).body("hello")
+        Response(OK).body("Hello, my name is Ollie and this is my website. Enjoy.")
     },
 
     "/ping" bind GET to {
