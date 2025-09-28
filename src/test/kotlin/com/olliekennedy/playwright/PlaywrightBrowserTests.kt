@@ -18,7 +18,7 @@ class PlaywrightBrowserTests {
     @Test
     fun `can browse app`(browser: Http4kBrowser) {
         with(browser.newPage()) {
-            assertEquals("hello", navigateHome().text())
+            assertEquals("Hello, my name is Ollie and this is my website. Enjoy.", navigateHome().text())
         }
     }
 }
