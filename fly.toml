@@ -1,4 +1,5 @@
 app = "personal-site-ollie"
+primary_region = "lhr"
 
 [build]
 
