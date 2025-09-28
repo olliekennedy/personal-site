@@ -20,6 +20,10 @@ import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.viewModel
 
 val app: HttpHandler = routes(
+    "/" bind GET to {
+        Response(OK).body("hello")
+    },
+
     "/ping" bind GET to {
         Response(OK).body("pong")
     },

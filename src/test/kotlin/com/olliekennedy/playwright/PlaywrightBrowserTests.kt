@@ -1,5 +1,6 @@
 package com.olliekennedy.playwright
 
+import com.olliekennedy.app
 import org.http4k.core.Request
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
@@ -10,8 +11,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 
 class PlaywrightBrowserTests {
-
-    private val app = { _: Request -> Response(OK).body("hello") }
 
     @RegisterExtension
     val playwright = LaunchPlaywrightBrowser(app)
