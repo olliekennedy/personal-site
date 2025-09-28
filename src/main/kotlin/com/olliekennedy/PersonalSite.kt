@@ -45,9 +45,8 @@ val app: HttpHandler = routes(
 )
 
 fun main() {
+    val port = System.getenv("PORT")?.toIntOrNull() ?: 9000
     val printingApp: HttpHandler = PrintRequest().then(app)
-
-    val server = printingApp.asServer(Jetty(9000)).start()
-
-    println("Server started on " + server.port())
+    printingApp.asServer(Jetty(port)).start()
+    println("Server started on $port")
 }
