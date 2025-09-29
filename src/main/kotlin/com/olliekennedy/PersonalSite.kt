@@ -19,7 +19,7 @@ import org.http4k.server.asServer
 import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.viewModel
 
-val app: HttpHandler = routes(
+private fun rawRoutes(): HttpHandler = routes(
     "/" bind GET to {
         Response(OK).body("Hello, my name is Ollie and this is my website. Enjoy.")
     },
@@ -39,14 +39,20 @@ val app: HttpHandler = routes(
         Response(OK).with(view of viewModel)
     },
 
-    "/testing/hamkrest" bind GET to {request ->
+    "/testing/hamkrest" bind GET to { request ->
         Response(OK).body("Echo '${request.bodyString()}'")
     }
 )
 
+fun buildApp(debug: Boolean = false): HttpHandler {
+    val core = SecurityHeaders.Add.then(rawRoutes())
+    return if (debug) PrintRequest().then(core) else core
+}
+
+val app: HttpHandler = buildApp()
+
 fun main() {
     val port = System.getenv("PORT")?.toIntOrNull() ?: 9000
-    val printingApp: HttpHandler = PrintRequest().then(app)
-    printingApp.asServer(Jetty(port)).start()
+    buildApp(debug = true).asServer(Jetty(port)).start()
     println("Server started on $port")
 }
