@@ -19,36 +19,4 @@ import org.junit.jupiter.api.Test
 
 class PersonalSiteTest {
 
-    @Test
-    fun `Ping test`() {
-        val result = app(Request(GET, "/ping"))
-        assertEquals(OK, result.status)
-        assertEquals("pong", result.bodyString())
-    }
-    @Test
-    fun `Check Hamkrest matcher for http4k work as expected`() {
-        val request = Request(GET, "/testing/hamkrest?a=b").body("http4k is cool").header("my header", "a value")
-    
-        val response = app(request)
-    
-        // response assertions
-        assertThat(response, hasStatus(OK))
-        assertThat(response, hasBody("Echo 'http4k is cool'"))
-    
-    
-        // other assertions
-        // query
-        assertThat(request, hasQuery("a", "b"))
-    
-        // header
-        assertThat(request, hasHeader("my header", "a value"))
-    
-        // body
-        assertThat(request, hasBody("http4k is cool"))
-        assertThat(request, hasBody(Body.string(TEXT_HTML).toLens(), equalTo("http4k is cool")))
-    
-        // composite
-        assertThat(request, hasBody("http4k is cool").and(hasQuery("a", "b")))
-    }
-
 }

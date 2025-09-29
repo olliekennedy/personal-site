@@ -1,5 +1,8 @@
 package com.olliekennedy.playwright
 
+import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.contains
+import com.natpryce.hamkrest.equalTo
 import com.olliekennedy.app
 import org.http4k.core.Request
 import org.http4k.core.Response
@@ -18,7 +21,7 @@ class PlaywrightBrowserTests {
     @Test
     fun `can browse app`(browser: Http4kBrowser) {
         with(browser.newPage()) {
-            assertEquals("Hello, my name is Ollie and this is my website. Enjoy.", navigateHome().text())
+            assertThat(navigateHome().text(), contains("Hello, my name is Ollie and this is my website. Enjoy.".toRegex()))
         }
     }
 }

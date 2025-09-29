@@ -1,7 +1,5 @@
 package com.olliekennedy
 
-import com.olliekennedy.formats.JacksonMessage
-import com.olliekennedy.formats.jacksonMessageLens
 import com.olliekennedy.models.HandlebarsViewModel
 import org.http4k.core.Body
 import org.http4k.core.ContentType.Companion.TEXT_HTML
@@ -19,29 +17,14 @@ import org.http4k.server.asServer
 import org.http4k.template.HandlebarsTemplates
 import org.http4k.template.viewModel
 
+val renderer = HandlebarsTemplates().CachingClasspath()
+val view = Body.viewModel(renderer, TEXT_HTML).toLens()
+
 private fun rawRoutes(): HttpHandler = routes(
     "/" bind GET to {
-        Response(OK).body("Hello, my name is Ollie and this is my website. Enjoy.")
+        Response(OK)
+            .with(view of HandlebarsViewModel("Hello, my name is Ollie and this is my website. Enjoy."))
     },
-
-    "/ping" bind GET to {
-        Response(OK).body("pong")
-    },
-
-    "/formats/json/jackson" bind GET to {
-        Response(OK).with(jacksonMessageLens of JacksonMessage("Barry", "Hello there!"))
-    },
-
-    "/templates/handlebars" bind GET to {
-        val renderer = HandlebarsTemplates().CachingClasspath()
-        val view = Body.viewModel(renderer, TEXT_HTML).toLens()
-        val viewModel = HandlebarsViewModel("Hello there!")
-        Response(OK).with(view of viewModel)
-    },
-
-    "/testing/hamkrest" bind GET to { request ->
-        Response(OK).body("Echo '${request.bodyString()}'")
-    }
 )
 
 fun buildApp(debug: Boolean = false): HttpHandler {
