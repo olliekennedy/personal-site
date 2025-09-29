@@ -10,6 +10,7 @@ object SecurityHeaders {
             resp
                 .header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
                 .header("X-Content-Type-Options", "nosniff")
+                .header("Content-Type", "text/html; charset=utf-8")
                 .header("X-Frame-Options", "DENY")
                 .header("Referrer-Policy", "strict-origin-when-cross-origin")
                 .header("Permissions-Policy", "geolocation=(), microphone=(), camera=()")

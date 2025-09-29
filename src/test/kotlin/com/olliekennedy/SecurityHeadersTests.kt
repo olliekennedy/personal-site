@@ -16,6 +16,7 @@ class SecurityHeadersTests {
         val expected = mapOf(
             "Strict-Transport-Security" to "max-age=31536000; includeSubDomains; preload",
             "X-Content-Type-Options" to "nosniff",
+            "Content-Type" to "text/html; charset=utf-8",
             "X-Frame-Options" to "DENY",
             "Referrer-Policy" to "strict-origin-when-cross-origin",
             "Permissions-Policy" to "geolocation=(), microphone=(), camera=()",
