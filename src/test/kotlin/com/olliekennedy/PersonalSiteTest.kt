@@ -21,7 +21,9 @@ class PersonalSiteTest {
 
     @Test
     fun `Ping test`() {
-        assertEquals(Response(OK).body("pong"), app(Request(GET, "/ping")))
+        val result = app(Request(GET, "/ping"))
+        assertEquals(OK, result.status)
+        assertEquals("pong", result.bodyString())
     }
     @Test
     fun `Check Hamkrest matcher for http4k work as expected`() {
